@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(vector<int> in, vector<int> op, set<vector<int>>& s){
+    //cout<<in.size()<<" "<<op.size()<<"\n";
+    if(in.size() == 0){
+        sort(op.begin(),op.end());
+        s.insert(op);
+        //  for(auto c:op) cout<<c<<" ";
+        //  cout<<endl;
+        return;
+    }
+    
+    vector<int> op1(op.begin(),op.end());
+    vector<int> op2(op.begin(),op.end());
+    op2.push_back(in[0]);
+    // for(auto c:in) cout<<c<<" ";
+    //     cout<<endl;
+    in.erase(in.begin(),in.begin() + 1);
+    solve(in,op1,s);
+    solve(in,op2,s);
+    return;
+}
+
+
+int main() {
+	//code
+	
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    
+	    int n,val;
+	    cin>>n;
+	    vector<int> in;
+	    vector<int> op;
+	    set<vector<int>> s;
+	    op.clear();
+	    for(int i = 0;i < n;i++){
+	        cin>>val;
+	        in.push_back(val);
+	    }
+	    //for(auto c:in) cout<<c<<" "; 
+	    solve(in,op,s);
+	    for(auto c: s){
+	        cout<<"(";
+            for(auto i = c.begin(); i != c.end(); i++){
+                cout<<*i;
+                if((i + 2) == c.end()){
+                    cout<<" ";
+                    cout<<*(i + 1);
+                    break;
+                }
+                if(c.begin() + 1 == c.end())
+                    break;
+                cout<<" ";
+            }
+            cout<<")";
+        }
+	    cout<<"\n";
+	}
+	
+	
+	return 0;
+}
