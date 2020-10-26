@@ -1,0 +1,57 @@
+Given a string you need to print all possible strings that can be made by placing spaces (zero or one) in between them.
+Output should be printed in sorted increasing order of strings.
+
+Input:  str[] = "ABC"
+Output: (A B C)(A BC)(AB C)(ABC)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void go(string in,string op,vector<string>& v){
+    
+    if(in == ""){
+       // cout<<op<<" ";
+        op.insert(0,1,'(');
+        op.push_back(')');
+        v.push_back(op);
+        return;
+    }
+    //cout<<op<<" "<<in<<"\n";
+    string op1 = op;
+    string op2 = op;
+    op1.push_back(' ');
+    op1.push_back(in[0]);
+    op2.push_back(in[0]);
+    in.erase(in.begin(),in.begin() + 1);
+    go(in,op1,v);
+    go(in,op2,v);
+}
+
+
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    string s;
+	    cin>>s;
+	    //cout<<s[0];
+	    string op;
+	    //string op ="";
+	    op.push_back(s[0]);
+	    s.erase(s.begin(),s.begin() + 1);
+	    vector<string> v;
+	   // cout<<op<<" ";
+	    go(s,op,v);
+	    sort(v.begin(),v.end());
+	    for(auto c : v)
+	        cout<<c;
+	    cout<<"\n";
+	}
+	return 0;
+}
