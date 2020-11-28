@@ -1,0 +1,54 @@
+Given a positive integer N, the task is to find all the N bit binary numbers having more than or equal 1’s than 0’s for any prefix of the number.
+
+Example 1:
+
+Input:  N = 2
+Output: 11 10
+Explanation: 11 and 10 have more than 
+or equal 1's than 0's
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+class Solution{
+public:	
+
+    void go(string s,int one,int zero,int n,vector<string> &v){
+        
+        if((one + zero) == n){
+            v.push_back(s);
+            return;
+        }
+        
+        if(one >= zero){
+            string s1 = s;
+            s1.push_back('1');
+            go(s1,one + 1,zero,n,v);
+        }
+        
+        if(one > zero){
+            string s2 = s;
+            s2.push_back('0');
+            go(s2,one,zero + 1,n,v);
+        }
+        
+        
+    }
+
+
+	vector<string> NBitBinary(int N)
+	{
+	    // Your code goes here
+	    
+	    string s;
+	    vector<string> v;
+	    
+	    s.push_back('1');
+	    
+	    int one = 1, zero = 0;
+	    
+	    go(s,one,zero,N,v);
+	    return v;
+	}
+};
